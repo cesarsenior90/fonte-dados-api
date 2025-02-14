@@ -25,14 +25,46 @@ const routes = [
   '/params'
 ];
 
+// app.get('/', (req, res) => {
+//   let html = '<h1>API Routes</h1><ul>';
+//   routes.forEach(route => {
+//     html += `<li><a href="${route}">${route}</a></li>`;
+//   });
+//   html += '</ul>';
+//   res.send(html);
+// });
+
 app.get('/', (req, res) => {
-  let html = '<h1>API Routes</h1><ul>';
-  routes.forEach(route => {
-    html += `<li><a href="${route}">${route}</a></li>`;
+  const offset = parseInt(req.query.offset) || 0;  // Valor default 0
+  const size = parseInt(req.query.size) || 20;    // Valor default 30
+  console.log('offset', req.query.offset);
+  console.log('size', req.query.size);
+
+  // Verificando se o tamanho solicitado não é maior que 30
+  const validSize = Math.min(size, 30);
+
+  // Validando o offset
+  if (offset < 0) {
+    return res.status(400).json({ error: 'Offset não pode ser negativo' });
+  }
+
+  // Calculando o slice da lista com base no offset e no size
+  const startIndex = offset;
+  const endIndex = startIndex + validSize;
+
+  // Retornando as linhas solicitadas
+  const result = data.slice(startIndex, endIndex);
+
+  res.json({
+    offset,
+    size: validSize,
+    data: result,
   });
-  html += '</ul>';
-  res.send(html);
 });
+
+
+
+
 
 app.get('/params', (req, res) => {
   res.json({

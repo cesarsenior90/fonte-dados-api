@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   routes.forEach(route => {
     const link = document.createElement('a');
-    link.href = `http://localhost:3000${route}`;
+    link.href = `${route}`;
     link.textContent = route;
     link.style.display = 'block';
     container.appendChild(link);
