@@ -46,7 +46,7 @@ app.get('/api', (request, res) => {
 
 app.listen({
   host: '0.0.0.0',
-  port: process.env.PORT ? Number(process.env.port) : 3333
+  port: 3333
 }).then(() => {
   console.log('Server is running');
 })
